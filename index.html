@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schedina Lab</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mut:#667085;--ln:#e3e6eb;--ac:#0b7a4b;--acbg:#e3f4ec;--wn:#9a4a00;--wnbg:#fff1dc;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1318;--card:#181e26;--tx:#eef1f5;--mut:#9aa4b2;--ln:#2a323d;--ac:#4cd08f;--acbg:#12372a;--wn:#ffc27a;--wnbg:#3a2a12;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1318;--card:#181e26;--tx:#eef1f5;--mut:#9aa4b2;--ln:#2a323d;--ac:#4cd08f;--acbg:#12372a;--wn:#ffc27a;--wnbg:#3a2a12;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:640px;margin-inline:auto}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:9;padding:10px 12px 6px;border-bottom:1px solid var(--ln)}
+h1{font-size:18px;margin:0 0 8px}
+.tabs{display:flex;gap:6px}
+.tabs button,.chip,.seg button,.go{font:inherit;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:999px;padding:7px 14px}
+.tabs button{flex:1}
+.on{background:var(--ac)!important;color:#fff!important;border-color:var(--ac)!important}
+main{padding:10px 12px 30px}
+.demo{background:var(--wnbg);color:var(--wn);border-radius:10px;padding:8px 10px;font-size:13px;margin-bottom:10px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px}
+.chip{white-space:nowrap;padding:5px 12px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:10px;margin-bottom:10px}
+.meta{color:var(--mut);font-size:12px}.ttl{font-weight:600;margin:2px 0 8px}
+.mk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.mk button{font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:6px 2px;text-align:center}
+.mk b{display:block;font-size:11px;font-weight:500;color:var(--mut)}.mk span{display:block;font-weight:700}.mk i{display:block;font-style:normal;font-size:11px;color:var(--mut)}
+.mk .val{border-color:var(--ac)}.mk .val i{color:var(--ac);font-weight:600}
+.mk .sel{background:var(--ac);border-color:var(--ac);color:#fff}.mk .sel b,.mk .sel i{color:#fff}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.seg{display:flex;gap:6px}.seg button{padding:6px 14px}
+.go{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+.leg{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.leg button{font:inherit;border:0;background:none;color:var(--mut);font-size:20px;padding:4px 8px}
+.tot{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tot div{background:var(--bg);border-radius:10px;padding:8px}
+.tot b{display:block;font-size:18px}.pos{color:var(--ac)}.neg{color:var(--wn)}
+input{font:inherit;width:80px;padding:6px;border-radius:8px;border:1px solid var(--ln);background:var(--bg);color:var(--tx)}
+.foot{color:var(--mut);font-size:12px;margin-top:14px}.sp{display:flex;gap:6px;margin-bottom:8px}.sp button{flex:1;font:inherit;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:10px;padding:8px}.mk.two{grid-template-columns:repeat(2,1fr)}.mk.three{grid-template-columns:repeat(3,1fr)}.mk .g{background-image:linear-gradient(rgba(34,160,90,.24),rgba(34,160,90,.24))}.mk .y{background-image:linear-gradient(rgba(240,180,0,.26),rgba(240,180,0,.26))}.mk .r{background-image:linear-gradient(rgba(224,64,54,.22),rgba(224,64,54,.22))}.mk .sel{background-image:none}.legend{color:var(--mut);font-size:12px;margin:0 0 10px}.hd{display:flex;align-items:center;gap:8px;width:100%;font:inherit;color:var(--tx);background:none;border:0;padding:0;text-align:left}.hd .hl{flex:1;min-width:0}.hd .ttl{display:block;margin:0}.hd .meta{display:block}.pill{border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;border:1px solid var(--ln);background-color:var(--bg);white-space:nowrap}.pill.g,.xr.g{background-image:linear-gradient(rgba(34,160,90,.24),rgba(34,160,90,.24))}.pill.y,.xr.y{background-image:linear-gradient(rgba(240,180,0,.26),rgba(240,180,0,.26))}.pill.r,.xr.r{background-image:linear-gradient(rgba(224,64,54,.22),rgba(224,64,54,.22))}.chev{color:var(--mut)}.ex{margin-top:6px}.hide{display:none}.xr{display:flex;justify-content:space-between;gap:8px;width:100%;font:inherit;color:var(--tx);background-color:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:8px 10px;margin-top:5px;text-align:left}.xr.val{border-color:var(--ac)}.xr.sel{background-color:var(--ac);background-image:none;color:#fff;border-color:var(--ac)}.stp{justify-content:center;gap:18px}.stp b{font-size:22px;min-width:28px;text-align:center}.stp button{font:inherit;width:44px;height:44px;font-size:22px;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:999px}.pk{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--ln)}.pk .r{width:22px;text-align:center;font-weight:700;color:var(--mut)}.pk .x{flex:1}.pk button{font:inherit;min-width:40px;border:1px solid var(--ln);background:var(--bg);color:var(--tx);border-radius:10px;padding:6px 10px}.pk button.sel{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+body{background:var(--bg)}
+h1{font-size:20px;letter-spacing:-.02em;margin:0 0 10px}
+.tabs{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:4px;gap:4px}
+.tabs button{border:0;background:transparent;border-radius:11px;padding:9px 6px;font-weight:600}
+.card{border-radius:16px;padding:12px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 6px 18px rgba(16,24,40,.06)}
+.go{padding:10px 18px;box-shadow:0 2px 8px rgba(11,122,75,.28)}
+.chip{padding:6px 13px}
+.ex{animation:fd .18s ease}@keyframes fd{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.bar{display:block;height:5px;border-radius:5px;background:var(--ln);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;border-radius:5px;background:var(--ac)}
+.bar i.g{background:#22a05a}.bar i.y{background:#e6a700}.bar i.r{background:#e04036}
+.gh{font-weight:700;margin:16px 2px 8px}
+.sc{padding:10px 12px}
+.sl{display:flex;align-items:center;gap:10px;width:100%;font:inherit;color:var(--tx);background:none;border:0;padding:0;text-align:left}
+.sl .hl{flex:1;min-width:0}.sl .ttl{display:block;margin:0}.sl .meta{display:block}
+.rb{width:6px;align-self:stretch;border-radius:6px}.rl{background:#22a05a}.rm{background:#e6a700}.rh{background:#ea7a1a}
+.qv{font-weight:700;font-size:18px}
+.hd{padding:2px 0}
+.xr{border-radius:12px}
+
+/* ---- Tema armonioso: palette verde-petrolio, header con impatto, schede morbide ---- */
+:root{--hero:#0b3b34;--bg:#eef3f1;--card:#fff;--tx:#10201b;--mut:#5f716a;--ln:#dde7e2;--ac:#0c8f61;--ac2:#0a7a55;--acbg:#e1f5ec;--on:#fff;--wn:#9a4a00;--wnbg:#fff1dc;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hero:#0c1f1b;--bg:#0b1210;--card:#131c18;--tx:#e9f2ee;--mut:#8fa39a;--ln:#23312b;--ac:#34d399;--ac2:#10b981;--acbg:#12372a;--on:#04231a;--wn:#ffc27a;--wnbg:#3a2a12;color-scheme:dark}}
+:root[data-theme="dark"]{--hero:#0c1f1b;--bg:#0b1210;--card:#131c18;--tx:#e9f2ee;--mut:#8fa39a;--ln:#23312b;--ac:#34d399;--ac2:#10b981;--acbg:#12372a;--on:#04231a;--wn:#ffc27a;--wnbg:#3a2a12;color-scheme:dark}
+html{background:var(--bg)}
+body{background:var(--bg);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+body::before{background:var(--hero)}
+header{background:var(--hero);border:0;padding:12px 14px 14px;border-radius:0 0 24px 24px;box-shadow:0 10px 28px rgba(8,40,33,.28)}
+h1{color:#fff;font-size:22px;font-weight:800;letter-spacing:-.03em;margin:0 0 10px}
+.tabs{background:rgba(255,255,255,.12);border:0;border-radius:15px;padding:4px;gap:4px}
+.tabs button{color:rgba(255,255,255,.88);background:transparent;border:0;border-radius:12px;padding:10px 4px;font-weight:700;font-size:14px}
+.tabs button.on{background:#fff!important;color:#0b3b34!important;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+main{padding:16px 12px 44px}
+.on{color:var(--on)!important}
+button{transition:transform .08s ease}button:active{transform:scale(.97)}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 1px 1px rgba(10,40,30,.04),0 10px 26px rgba(10,40,30,.07)}
+.sp{gap:8px;margin-bottom:12px}
+.sp button{border:1px solid var(--ln);background:var(--card);border-radius:15px;padding:11px 6px;font-weight:700;box-shadow:0 1px 2px rgba(10,40,30,.06)}
+.sp button.on{background:linear-gradient(135deg,var(--ac),var(--ac2))!important;border-color:transparent!important;box-shadow:0 8px 18px rgba(15,157,107,.32)}
+.chip{border:1px solid var(--ln);background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600}
+.chip.on,.seg button.on{background:var(--ac)!important;border-color:var(--ac)!important}
+.go{background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--on);border:0;border-radius:14px;padding:12px 18px;font-weight:700;box-shadow:0 8px 18px rgba(15,157,107,.28)}
+.hd{gap:10px}.hd .ttl{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.pill{border-radius:12px;padding:6px 10px;font-weight:700;color:var(--tx)}
+.pill.g{background-image:none;background-color:rgba(31,164,99,.16);border-color:rgba(31,164,99,.5)}
+.pill.y{background-image:none;background-color:rgba(240,180,0,.2);border-color:rgba(224,164,0,.55)}
+.pill.r{background-image:none;background-color:rgba(224,64,54,.15);border-color:rgba(224,64,54,.5)}
+.chev{font-size:14px}
+.bar{height:6px;border-radius:6px}.bar i{border-radius:6px}
+.bar i.g{background:linear-gradient(90deg,#3bd08a,#1fa463)}.bar i.y{background:linear-gradient(90deg,#f5c542,#e0a400)}.bar i.r{background:linear-gradient(90deg,#f0786f,#e04036)}
+.xr{border-radius:12px;padding:10px 12px;margin-top:6px;font-weight:600}
+.xr.g{background-image:linear-gradient(90deg,rgba(31,164,99,.2),rgba(31,164,99,.03));box-shadow:inset 4px 0 0 #1fa463}
+.xr.y{background-image:linear-gradient(90deg,rgba(240,180,0,.22),rgba(240,180,0,.03));box-shadow:inset 4px 0 0 #e0a400}
+.xr.r{background-image:linear-gradient(90deg,rgba(224,64,54,.18),rgba(224,64,54,.03));box-shadow:inset 4px 0 0 #e04036}
+.xr.sel{background-image:none;background-color:var(--ac);color:var(--on);box-shadow:none}
+.tot div{background:var(--bg);border-radius:14px;padding:10px 12px}.tot b{font-size:22px;font-weight:800}
+.gh{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;letter-spacing:-.01em;margin:22px 2px 10px}
+.sc{padding:12px 14px}.rb{width:7px;border-radius:7px}
+.qv{font-size:20px;font-weight:800;color:var(--ac);background:var(--acbg);border-radius:12px;padding:6px 10px}
+.pk button{border-radius:12px;font-weight:700}.pk button.sel{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.demo{border-radius:14px;padding:10px 12px;font-weight:500}
+.legend{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:8px 10px;color:var(--mut)}
+input[type=range]{accent-color:var(--ac)}input{border-radius:10px}
+.foot{text-align:center;padding:0 10px}
+</style></head><body>
+<header><h1>⚽ Schedina Lab</h1><div class="tabs"><button id="t1" class="on">📋 Partite</button><button id="t2">🧾 Schedina</button><button id="t3">✨ AI Agent</button></div></header>
+<main id="app"></main>
+<script>
+const LG={CL:"Champions League",EU:"Europa League",CO:"Conference League",SA:"Serie A",SB:"Serie B",PL:"Premier League",CH:"Championship",E1:"League One",E2:"League Two",SC:"Scozia",L1:"Ligue 1",LL:"La Liga",PT:"Primeira Liga",ER:"Eredivisie",BL:"Bundesliga",B2:"2. Bundesliga",SW:"Allsvenskan",NO:"Eliteserien",DK:"Superliga danese",ATP:"ATP",WTA:"WTA",ITF:"ITF",CHL:"Challenger",NBA:"NBA",LBA:"Serie A basket"};
+const SPN={c:"⚽ Calcio",t:"🎾 Tennis",b:"🏀 Basket"},SPL={c:["CL","EU","CO","SA","SB","PL","CH","E1","E2","SC","L1","LL","PT","ER","BL","B2","SW","NO","DK"],t:["ATP","WTA","ITF","CHL"],b:["NBA","LBA"]};
+const spOf=lg=>Object.keys(SPL).find(s=>SPL[s].includes(lg));
+const bp=m=>{const k=m.k.reduce((a,b)=>m.p[b]>m.p[a]?b:a);return{k,p:m.p[k]}};
+const sel80=()=>{slip={};DATA.forEach(m=>{const b=bp(m);if(b.p*100>=thr)slip[m.id]=b.k});n=Math.max(1,Object.keys(slip).length)};
+// AI Agent: molte schedine per livello di rischio; ognuna incrocia giocate ad alta probabilità (70%+) e media (50-70%), mai a bassa probabilità
+const SPEC=[{r:"l",hi:2,md:0,o:0},{r:"l",hi:3,md:0,o:0},{r:"l",hi:3,md:0,o:3},{r:"l",hi:4,md:0,o:1},
+{r:"m",hi:2,md:2,o:0},{r:"m",hi:3,md:2,o:1},{r:"m",hi:2,md:3,o:2},{r:"m",hi:4,md:3,o:3},
+{r:"h",hi:4,md:4,o:0},{r:"h",hi:5,md:5,o:1},{r:"h",hi:6,md:6,o:0},{r:"h",hi:7,md:7,o:2}];
+const RN={l:["Basso rischio","🟢","rl"],m:["Medio rischio","🟡","rm"],h:["Alto rischio","🟠","rh"]};
+let played=[],openA={};try{played=JSON.parse(localStorage.getItem("pl")||"[]")}catch(e){}
+const sv=()=>{try{localStorage.setItem("pl",JSON.stringify(played))}catch(e){}};
+const tot=L=>{let Q=1,P=1;L.forEach(([id,k])=>{Q*=DATA[id].o[k];P*=DATA[id].p[k]});return{Q,P}};
+function pools(){const A=[],B=[];DATA.forEach(m=>{let a=null,b=null;m.k.forEach(k=>{const p=m.p[k];if(p>=.7){if(!a||p>m.p[a])a=k}else if(p>=.5){if(!b||ed(m,k)+.3*p>ed(m,b)+.3*m.p[b])b=k}});const pen=low(m)?1:0;if(a)A.push([m.p[a]-pen,m.id,a]);if(b)B.push([m.p[b]+.5*ed(m,b)-pen,m.id,b])});A.sort((x,y)=>y[0]-x[0]);B.sort((x,y)=>y[0]-x[0]);return[A,B]}
+function slips(){const[A,B]=pools();return SPEC.map(s=>{const used={},L=[];A.slice(s.o,s.o+s.hi).forEach(x=>{used[x[1]]=1;L.push([x[1],x[2]])});let c=0;for(let i=s.o;i<B.length&&c<s.md;i++){const x=B[i];if(!used[x[1]]){used[x[1]]=1;L.push([x[1],x[2]]);c++}}return{...s,L}}).filter(s=>s.L.length>=2&&s.L.length>=s.hi+s.md-1)}
+function loadIt(i){const s=slips()[i];slip={};s.L.forEach(([id,k])=>slip[id]=k);n=Math.max(1,s.L.length);view=2}
+function playIt(i){const s=slips()[i],{Q,P}=tot(s.L);played.unshift({d:new Date().toLocaleDateString("it-IT"),Q,pp:+(P*100).toFixed(1),l:s.L.map(([id,k])=>DATA[id].h+" – "+DATA[id].a+": "+lab(DATA[id],k)).join("; "),st:0});sv()}
+function agentView(){let h=`<div class="card meta">Schedine generate dal modello statistico. Ogni selezione ha almeno il 50% di probabilità stimata e ogni schedina mescola giocate molto probabili (70%+) con giocate medie (50-70%). Il rischio cresce con il numero di partite, non con selezioni a caso. Non sono consigli di gioco.</div>`;
+const S=slips();
+["l","m","h"].forEach(r=>{const g=S.map((s,i)=>[s,i]).filter(([s])=>s.r==r);if(!g.length)return;h+=`<div class="gh">${RN[r][1]} ${RN[r][0]}</div>`;
+g.forEach(([s,i])=>{const{Q,P}=tot(s.L),ev=P*Q-1,o=openA[i];
+h+=`<div class="card sc"><button class="sl" data-ao="${i}"><span class="rb ${RN[r][2]}"></span><span class="hl"><span class="ttl">${s.L.length} partite</span><span class="meta">Probabilità di riuscita ${(P*100).toFixed(P<.1?1:0).replace(".",",")}%</span><span class="bar"><i style="width:${Math.max(3,Math.round(P*100))}%"></i></span></span><span class="qv">${nm(Q)}</span><span class="chev">${o?"▴":"▾"}</span></button>`+(o?`<div class="ex">`+s.L.map(([id,k])=>{const m=DATA[id];return `<div class="xr ${tl(m.p[k])}"><span>${m.h} – ${m.a}${low(m)?" ⚠️":""}<br><span class="meta">${lab(m,k)}</span></span><span>${pc(m.p[k])} · ${nm(m.o[k])}</span></div>`}).join("")+`<div class="meta" style="margin:8px 0">Valore atteso per 1 €: <span class="${ev>=0?"pos":"neg"}">${ev>=0?"+":""}${nm(ev)} €</span></div><div class="row"><button class="go" data-ld="${i}">Carica nella schedina</button><button class="chip" data-pl="${i}">Segna come giocata</button></div></div>`:"")+`</div>`})});
+const w=played.filter(p=>p.st==1).length,x=played.filter(p=>p.st==2).length;
+h+=`<div class="gh">Giocate segnate</div><div class="card">`+(played.length?`<div class="meta">Vinte ${w} · Perse ${x} · In attesa ${played.length-w-x}. Tocca lo stato per cambiarlo.</div>`+played.map((p,i)=>`<div class="pk"><div class="x"><div><b>${p.d} · quota ${nm(p.Q)} · ${String(p.pp).replace(".",",")}%</b></div><div class="meta">${p.l}</div></div><button data-ps="${i}">${["In attesa","Vinta","Persa"][p.st]}</button><button data-pd="${i}" aria-label="Elimina">×</button></div>`).join(""):`<div class="meta">Ancora nessuna: usa “Segna come giocata” su una schedina.</div>`)+`</div>`;return h}
+const KS=["1","X","2","o15","o25","u25","gg"];
+const Phi=x=>{const t=1/(1+.2316419*Math.abs(x)),d=.3989423*Math.exp(-x*x/2),p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return x>0?1-p:p};
+const mw=(s,b)=>b==5?s*s*s*(1+3*(1-s)+6*(1-s)*(1-s)):s*s*(3-2*s);
+const setp=(p,b)=>{let lo=0,hi=1;for(let i=0;i<40;i++){const m=(lo+hi)/2;mw(m,b)<p?lo=m:hi=m}return(lo+hi)/2};
+const od=(p,g)=>Math.max(1.05,Math.round(100/(p*g))/100),f1=x=>String(x).replace(".",",");
+// Tennis: dalla probabilità di vincere il match si ricava quella di vincere un singolo set (best of 3 o 5), poi la probabilità di vincere almeno un set
+function TN(){return W.filter(w=>spOf(w[0])=="t").map(w=>{const b=w[6]||3,s=setp(w[4],b),sm=setp(w[5],b),at=q=>1-Math.pow(1-q,b==5?3:2);
+const P=(a,q)=>({"1":a,"2":1-a,s1:at(q),s2:at(1-q)}),p=P(w[4],s),q=P(w[5],sm),o={};Object.keys(p).forEach(k=>o[k]=od(q[k],1.06));
+return{lg:w[0],h:w[1],a:w[2],t:w[3],p,o,k:["1","2","s1","s2"],sp:"t",lb:{"1":w[1],"2":w[2],s1:w[1]+" ≥1 set",s2:w[2]+" ≥1 set"}}})}
+// Basket: punti totali con distribuzione normale attorno alla media attesa; per ogni partita [linea, media modello, media mercato, deviazione]
+function BK(){const X=[[224.5,227,225.5,18],[229.5,231,230,18],[232.5,233,235,18],[161.5,164,162,13]];
+return W.filter(w=>spOf(w[0])=="b").map((w,i)=>{const[L,mu,mm,sd]=X[i],ov=(l,m)=>1-Phi((l-m)/sd),
+P=(a,m)=>({"1":a,"2":1-a,o1:ov(L-10,m),o2:ov(L,m),u2:1-ov(L,m),u3:1-ov(L+10,m)}),p=P(w[4],mu),q=P(w[5],mm),o={};Object.keys(p).forEach(k=>o[k]=od(q[k],1.06));
+return{lg:w[0],h:w[1],a:w[2],t:w[3],p,o,k:["1","2","o1","o2","u2","u3"],sp:"b",lb:{"1":w[1],"2":w[2],o1:"Over "+f1(L-10),o2:"Over "+f1(L),u2:"Under "+f1(L),u3:"Under "+f1(L+10)}}})}
+// Tennis e basket dimostrativi: [lega, casa/giocatore 1, trasferta/giocatore 2, orario, prob. modello della prima, prob. implicita nel mercato]
+const W=[["ATP","Sinner","Alcaraz","Sab 14:00",.55,.53,5],["ATP","Djokovic","Ruud","Sab 16:00",.74,.72],["ATP","Musetti","Fritz","Dom 13:00",.47,.5],["WTA","Sabalenka","Gauff","Sab 12:00",.63,.6],["WTA","Swiatek","Paolini","Dom 15:00",.78,.75],["ITF","L. Moretti","D. Kovac","Sab 10:00",.58,.55],["ITF","S. Larsen","M. Novak","Sab 11:30",.7,.66],["CHL","A. Bianchi","P. Duval","Dom 12:00",.52,.5],["CHL","J. Weber","R. Silva","Dom 14:00",.61,.63],["NBA","Celtics","Knicks","Sab 01:00",.64,.61],["NBA","Nuggets","Lakers","Sab 03:30",.58,.6],["NBA","Warriors","Suns","Dom 04:00",.55,.52],["LBA","Virtus Bologna","Brescia","Dom 17:00",.8,.77]];
+const MK=[["1","1"],["X","X"],["2","2"],["o15","Over 1,5"],["o25","Over 2,5"],["u25","Under 2,5"],["gg","Gol"]];
+const pm=(k,l)=>{let r=Math.exp(-l);for(let i=1;i<=k;i++)r*=l/i;return r};
+function pr(a,b){const o={"1":0,X:0,"2":0,o15:0,o25:0,u25:0,gg:0};
+for(let i=0;i<10;i++)for(let j=0;j<10;j++){const p=pm(i,a)*pm(j,b);
+if(i>j)o["1"]+=p;else if(i==j)o.X+=p;else o["2"]+=p;
+if(i+j>1)o.o15+=p;if(i+j>2)o.o25+=p;else o.u25+=p;if(i&&j)o.gg+=p}return o}
+// Dati dimostrativi: [lega, casa, trasferta, orario, gol attesi modello casa/trasf., gol attesi impliciti nel mercato casa/trasf.]
+const D=[["SA","Inter","Torino","Sab 15:00",1.9,.8,1.85,.85],["SA","Napoli","Atalanta","Sab 18:00",1.5,1.3,1.4,1.4],
+["PL","Arsenal","Brentford","Sab 13:30",2.1,1,2,1.05],["PL","Liverpool","Everton","Sab 16:00",2,.9,2.1,1],["PL","Chelsea","Fulham","Dom 15:00",1.7,1.2,1.6,1.2],
+["L1","PSG","Nantes","Sab 21:00",2.3,.8,2.3,.9],["L1","Lille","Lens","Dom 17:00",1.4,1.1,1.3,1.1],
+["LL","Real Madrid","Getafe","Sab 21:00",2,.7,2,.75],["LL","Barcellona","Siviglia","Dom 21:00",2.2,1.1,2.1,1.2],
+["PT","Benfica","Braga","Sab 20:30",1.8,1,1.7,1.1],["PT","Porto","Sporting","Dom 20:30",1.4,1.2,1.5,1.1],
+["SB","Palermo","Bari","Sab 15:00",1.6,.9,1.5,1],["SB","Venezia","Sampdoria","Sab 17:15",1.7,.8,1.6,.9],["CH","Leeds","Sheffield Utd","Sab 13:30",1.7,1,1.6,1.1],["E1","Bolton","Wigan","Sab 16:00",1.5,1.1,1.4,1.2],["E2","Stockport","Walsall","Sab 16:00",1.4,1.2,1.4,1.2],["SC","Celtic","Hearts","Dom 13:30",2.2,.9,2.1,1],["ER","Ajax","Utrecht","Sab 20:00",2,1.1,1.9,1.2],["BL","Bayern","Mainz","Sab 15:30",2.6,.9,2.5,1],["B2","Amburgo","Fortuna Dusseldorf","Sab 13:00",1.7,1.2,1.6,1.3],["SW","Malmo","Hammarby","Dom 15:00",1.6,1.2,1.5,1.3],["NO","Bodo/Glimt","Molde","Dom 18:00",2,1.2,1.9,1.3],["DK","Copenaghen","Midtjylland","Dom 14:00",1.5,1.3,1.5,1.3],
+["CL","Manchester City","Napoli","Mar 21:00",2,1,1.9,1.1],["CL","Barcellona","Bayern","Mer 21:00",1.9,1.7,1.8,1.7],["EU","Roma","Ajax","Gio 18:45",1.7,1,1.6,1.1],["EU","Aston Villa","Porto","Gio 21:00",1.6,1.1,1.6,1.1],["CO","Fiorentina","Legia","Gio 21:00",2.1,.8,2,.9],["CO","Chelsea","Rapid Vienna","Gio 18:45",2.3,.7,2.2,.8]];
+let DATA=D.map((d,i)=>{const mk=pr(d[6],d[7]),o={};MK.forEach(([k])=>o[k]=Math.max(1.05,Math.round(100/(mk[k]*1.07))/100));
+return{lg:d[0],h:d[1],a:d[2],t:d[3],p:pr(d[4],d[5]),o,k:KS,sp:"c"}}).concat(TN(),BK()).map((m,i)=>({...m,id:i}));
+let demo=true,view=1,sp="c",flt="",tp="",n=3,mode="p",stake=5,slip={},open={},thr=80,upd="";
+const pc=x=>Math.round(x*100)+"%",nm=x=>x.toFixed(2).replace(".",","),ed=(m,k)=>m.p[k]*m.o[k]-1,sg=x=>(x>=0?"+":"")+Math.round(x*100)+"%";
+const mname=k=>(MK.find(a=>a[0]==k)||[0,k])[1],lab=(m,k)=>m.lb?m.lb[k]:mname(k),tl=p=>p>=.65?"g":p>=.45?"y":"r",dot=p=>p>=.65?"🟢":p>=.45?"🟡":"🔴",
+// Partite con dati insufficienti (demo). Con i dati veri: poche partite nello storico, formazioni o quote mancanti, oppure m.low=true nel JSON
+LOW=["Lille – Lens","Musetti – Fritz","Virtus Bologna – Brescia","Stockport – Walsall","Malmo – Hammarby","L. Moretti – D. Kovac"],low=m=>m.low||LOW.includes(m.h+" – "+m.a);
+function suggest(){const c=[];DATA.forEach(m=>{let b=null,s=-9;m.k.forEach(k=>{const e=ed(m,k),p=m.p[k];
+const sc=mode=="p"?p+.5*e:(p>=.3?e:-9);if(sc>s){s=sc;b=k}});if(b)c.push([low(m)?s-1:s,m.id,b])});
+c.sort((x,y)=>y[0]-x[0]);slip={};c.slice(0,n).forEach(x=>slip[x[1]]=x[2])}
+function render(){const A=document.getElementById("app");
+document.getElementById("t1").className=view==1?"on":"";document.getElementById("t2").className=view==2?"on":"";document.getElementById("t3").className=view==3?"on":"";
+let h=demo?`<div class="demo">Dati dimostrativi: partite e quote non sono reali. Il motore di calcolo è quello vero; i dati veri arriveranno da GitHub Actions.</div>`:`<div class="legend">Quote aggiornate: ${upd}${DATA.length?"":" · nessuna partita in programma nelle prossime ore"}. Le partite già iniziate non compaiono.</div>`;
+if(view==1){h+=`<div class="sp">`+Object.keys(SPN).map(s=>`<button data-s="${s}" class="${sp==s?"on":""}">${SPN[s]}</button>`).join("")+`</div><div class="chips"><button class="chip ${flt?"":"on"}" data-f="">Tutte</button>`+SPL[sp].map(k=>`<button class="chip ${flt==k?"on":""}" data-f="${k}">${LG[k]}</button>`).join("")+`</div><div class="legend">🟢 probabilità alta (65%+) · 🟡 media (45-65%) · 🔴 bassa · bordo verde = valore · ⚠️ dati insufficienti, stime poco affidabili</div>`;
+DATA.filter(m=>m.sp==sp&&(!flt||m.lg==flt)).forEach(m=>{h+=`<div class="card"><button class="hd" data-o="${m.id}"><span class="hl"><span class="ttl">${m.h} – ${m.a}${low(m)?" ⚠️":""}</span><span class="meta">${LG[m.lg]} · ${m.t}</span><span class="bar"><i class="${tl(bp(m).p)}" style="width:${Math.round(bp(m).p*100)}%"></i></span></span><span class="pill ${tl(bp(m).p)}">${dot(bp(m).p)} ${lab(m,bp(m).k)} · ${pc(bp(m).p)}</span><span class="chev">${open[m.id]?"▴":"▾"}</span></button><div class="ex ${open[m.id]?"":"hide"}">`+
+[...m.k].sort((a,b)=>m.p[b]-m.p[a]).map(k=>`<button data-m="${m.id}" data-k="${k}" class="xr ${tl(m.p[k])} ${slip[m.id]==k?"sel":ed(m,k)>.03?"val":""}"><span>${lab(m,k)}</span><span>${pc(m.p[k])} · quota ${nm(m.o[k])}</span></button>`).join("")+`</div></div>`})}
+else if(view==3){h+=agentView()}else{h+=`<div class="card"><div class="meta">Numero di partite</div><div class="row stp"><button data-d="-1" aria-label="Meno">−</button><b>${n}</b><button data-d="1" aria-label="Più">+</button></div><div class="row seg">`+[1,2,3,4,5].map(x=>`<button data-n="${x}" class="${n==x?"on":""}">${x}</button>`).join("")+[1,2,3].map(x=>`<button data-d="${x}">+${x}</button>`).join("")+
+`</div><div class="meta">Strategia</div><div class="row seg"><button data-mode="p" class="${mode=="p"?"on":""}">Prudente</button><button data-mode="v" class="${mode=="v"?"on":""}">Valore</button></div><button class="go" id="sug">Suggerisci schedina</button><div class="meta" style="margin-top:14px">Soglia di probabilità: <b id="thv">${thr}%</b> · <span id="thc">${DATA.filter(m=>bp(m).p*100>=thr).length}</span> partite sopra la soglia</div><input type="range" id="th" min="50" max="95" step="1" value="${thr}" style="width:100%"><button class="go" id="thb">Seleziona tutte le partite sopra ${thr}%</button></div>`;
+const top=DATA.filter(m=>!tp||m.sp==tp).map(m=>({m,k:m.k.reduce((a,b)=>m.p[b]>m.p[a]?b:a)})).sort((a,b)=>b.m.p[b.k]-a.m.p[a.k]).slice(0,8);
+h+=`<div class="card"><div class="ttl">Più probabili</div><div class="chips">`+[["","Tutti"],["c","Calcio"],["t","Tennis"],["b","Basket"]].map(([s,l])=>`<button class="chip ${tp==s?"on":""}" data-tp="${s}">${l}</button>`).join("")+`</div>`+top.map((x,i)=>`<div class="pk"><span class="r">${i+1}</span><div class="x"><div><b>${x.m.h} – ${x.m.a}</b>${low(x.m)?" ⚠️":""}</div><div class="meta">${lab(x.m,x.k)} · ${dot(x.m.p[x.k])} ${pc(x.m.p[x.k])} · quota ${nm(x.m.o[x.k])}</div></div><button data-m="${x.m.id}" data-k="${x.k}" class="${slip[x.m.id]==x.k?"sel":""}">${slip[x.m.id]==x.k?"✓":"+"}</button></div>`).join("")+`</div>`;
+const ids=Object.keys(slip);if(!ids.length)h+=`<div class="card meta">La schedina è vuota. Premi “Suggerisci” oppure scegli le quote dalla pagina Partite.</div>`;
+else{let Q=1,P=1;ids.forEach(id=>{const m=DATA[id],k=slip[id];Q*=m.o[k];P*=m.p[k];
+h+=`<div class="card leg"><div><div class="meta">${LG[m.lg]}</div><div class="ttl" style="margin:0">${m.h} – ${m.a}${low(m)?" ⚠️":""}</div><div class="meta">${lab(m,k)} · quota ${nm(m.o[k])} · prob. ${dot(m.p[k])} ${pc(m.p[k])} · valore <span class="${ed(m,k)>=0?"pos":"neg"}">${sg(ed(m,k))}</span></div></div><button data-x="${id}" aria-label="Rimuovi">×</button></div>`});
+const ev=P*Q-1;h+=`<div class="card"><div class="tot"><div><span class="meta">Quota totale</span><b>${nm(Q)}</b></div><div><span class="meta">Probabilità stimata</span><b>${(P*100).toFixed(1).replace(".",",")}%</b></div><div><span class="meta">Puntata (€)</span><input id="st" type="number" min="1" value="${stake}" inputmode="decimal"></div><div><span class="meta">Vincita potenziale</span><b>${nm(Q*stake)} €</b></div></div><div class="meta" style="margin-top:8px">Valore atteso per 1 €: <span class="${ev>=0?"pos":"neg"}">${ev>=0?"+":""}${nm(ev)} €</span>. Più partite aggiungi, più il margine del bookmaker pesa.</div></div>`}}
+h+=`<div class="foot">Stime statistiche (modello di Poisson), non garanzie. Il valore indica quanto la probabilità stimata supera quella della quota. Gioca solo se maggiorenne e in modo responsabile.</div>`;A.innerHTML=h}
+document.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;
+if(t.id=="t1"){view=1}else if(t.id=="t2"){view=2}else if(t.id=="t3"){view=3}
+else if(t.dataset.f!==undefined){flt=t.dataset.f}else if(t.dataset.tp!==undefined){tp=t.dataset.tp}else if(t.dataset.s){sp=t.dataset.s;flt=""}else if(t.dataset.o){open[t.dataset.o]=!open[t.dataset.o]}else if(t.dataset.d){n=Math.max(1,n+(+t.dataset.d));suggest()}else if(t.id=="thb"){sel80()}else if(t.dataset.ld){loadIt(t.dataset.ld)}else if(t.dataset.ao){openA[t.dataset.ao]=!openA[t.dataset.ao]}else if(t.dataset.pl){playIt(t.dataset.pl)}else if(t.dataset.ps){const p=played[+t.dataset.ps];p.st=(p.st+1)%3;sv()}else if(t.dataset.pd){played.splice(+t.dataset.pd,1);sv()}
+else if(t.dataset.m){const id=t.dataset.m;if(slip[id]==t.dataset.k)delete slip[id];else slip[id]=t.dataset.k}
+else if(t.dataset.n){n=+t.dataset.n;suggest()}
+else if(t.dataset.mode){mode=t.dataset.mode;suggest()}
+else if(t.id=="sug"){suggest()}
+else if(t.dataset.x){delete slip[t.dataset.x]}else return;render()});
+document.addEventListener("input",e=>{if(e.target.id=="th"){thr=+e.target.value;const g=i=>document.getElementById(i);g("thv").textContent=thr+"%";g("thc").textContent=DATA.filter(m=>bp(m).p*100>=thr).length;g("thb").textContent="Seleziona tutte le partite sopra "+thr+"%"}if(e.target.id=="st"){stake=Math.max(1,+e.target.value||1);const p=e.target.closest(".tot").querySelectorAll("b")[2];if(p){let Q=1;Object.keys(slip).forEach(i=>Q*=DATA[i].o[slip[i]]);p.textContent=nm(Q*stake)+" €"}}});
+(async()=>{try{const r=await fetch("data.json");if(r.ok){const j=await r.json();if(Array.isArray(j.matches)){DATA=j.matches.filter(m=>!m.ts||Date.parse(m.ts)>Date.now()).map((m,i)=>({k:Object.keys(m.o),sp:spOf(m.lg),...m,id:i}));upd=j.updated||"";demo=false;slip={};suggest();render()}}}catch(e){}})();
+suggest();render();
+</script></body></html>
